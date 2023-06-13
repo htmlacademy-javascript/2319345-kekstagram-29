@@ -11,14 +11,19 @@
     "url": "https://github.com/htmlacademy-javascript/2319345-kekstagram-29/issues"
   },
   "devDependencies": {
-    "browser-sync": "2.29.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
     "eslint": "8.42.0",
-    "eslint-config-htmlacademy": "9.1.1"
+    "eslint-config-htmlacademy": "9.1.1",
+    "vite": "^4.3.9"
   },
   "license": "MIT",
   "scripts": {
-    "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
-    "lint": "eslint js/"
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint js/",
+    "fix": "eslint js/ --fix"
   },
   "engines": {
     "node": "18",
