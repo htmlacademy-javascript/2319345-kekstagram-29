@@ -1,6 +1,6 @@
 const isMaxLength = (string, maxlength) => string.length <= maxlength;
 
-console.log(isMaxLength('hello JS', 5));
+isMaxLength('hello JS', 5);
 
 const isPalindrome = (string) => {
 	const newString = string.replaceAll(' ', '').toLowerCase();
@@ -11,7 +11,7 @@ const isPalindrome = (string) => {
 	return newString === reverseString;
 };
 
-console.log(isPalindrome('А роза упала на лапу Азора'));
+isPalindrome('А роза упала на лапу Азора');
 
 const getNumber = (string) => {
 	if (typeof string === 'number') {
@@ -26,4 +26,4 @@ const getNumber = (string) => {
 	return +newString || NaN;
 };
 
-console.log(getNumber('skndslf'));
+getNumber('skndslf');
