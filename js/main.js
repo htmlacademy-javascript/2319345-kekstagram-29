@@ -55,20 +55,20 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-function createRandomIdFromRangeGenerator (min, max) {
+const createRandomIdFromRangeGenerator = (min, max) => {
 	const previousValues = [];
-	return function () {
-		let currentValue = getRandomInteger(min, max);
+	return () => {
 		if (previousValues.length >= (max - min + 1)) {
 			return null;
 		}
+		let currentValue = getRandomInteger(min, max);
 		while (previousValues.includes(currentValue)) {
 			currentValue = getRandomInteger(min, max);
 		}
 		previousValues.push(currentValue);
 		return currentValue;
 	};
-}
+};
 
 const generatePhotoId = createRandomIdFromRangeGenerator(1, PHOTO_COUNT);
 
@@ -94,4 +94,4 @@ const createPhotoDescription = () => {
 
 const photoCollection = Array.from({length: PHOTO_COUNT}, createPhotoDescription);
 
-
+console.log(photoCollection);
