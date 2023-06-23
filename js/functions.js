@@ -27,3 +27,37 @@ const getNumber = (string) => {
 };
 
 getNumber('skndslf');
+
+// Проверка, укладывается ли встреча в рабочий день - 1 вариант
+
+const getDurationInMinutes = (string) => {
+	const timeMassive = string.split(':');
+	return Number(timeMassive[0]) * 60 + Number(timeMassive[1]);
+};
+
+const isMatched = (dayBegin, dayEnd, meetBegin, meetDuration) => {
+	const meetEnd = getDurationInMinutes(meetBegin) + meetDuration;
+	return ((getDurationInMinutes(dayBegin) <= getDurationInMinutes(meetBegin))) && (meetEnd <= getDurationInMinutes(dayEnd));
+};
+
+// 2 вариант
+
+const getTimestamp = (time, currentDate) => {
+	const timeMassive = time.split(':');
+	const hours = timeMassive[0];
+	const minutes = timeMassive[1];
+	currentDate.setHours(hours);
+	currentDate.setMinutes(minutes);
+	return currentDate.getTime();
+};
+
+const isMatchedTime = (dayBegin, dayEnd, meetBegin, meetDuration) => {
+	const currentDate = new Date();
+	const meetBeginTimestamp = getTimestamp(meetBegin, currentDate);
+	const meetEndTimestamp = meetBeginTimestamp + (meetDuration * 60000);
+	const dayBeginTimestamp = getTimestamp(dayBegin, currentDate);
+	const dayEndTimestamp = getTimestamp(dayEnd, currentDate);
+	return (meetBeginTimestamp >= dayBeginTimestamp) && (meetEndTimestamp <= dayEndTimestamp);
+};
+
+export {isMaxLength, isPalindrome, getNumber, isMatched, isMatchedTime};
