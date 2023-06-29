@@ -1,2 +1,2 @@
-import {createPhotoCollection} from './data.js';
+import {createPhotoCollection} from './mock.js';
 
