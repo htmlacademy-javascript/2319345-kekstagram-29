@@ -72,4 +72,6 @@ const createPhotoDescription = () => {
 
 const createPhotoCollection = () => Array.from({length: PHOTO_COUNT}, createPhotoDescription);
 
-export {createPhotoCollection};
+const photos = createPhotoCollection();
+
+export {photos};

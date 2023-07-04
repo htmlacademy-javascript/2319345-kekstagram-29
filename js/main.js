@@ -1,2 +1,2 @@
-import {createPhotoCollection} from './mock.js';
+import './render.js';
 

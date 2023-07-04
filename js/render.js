@@ -1,4 +1,5 @@
-import {createPhotoCollection} from './mock.js';
+import {photos} from './mock.js';
+import {openPhoto} from './full-size.js';
 
 const picturesContainer = document.querySelector('.pictures');
 
@@ -6,18 +7,24 @@ const pictureTemplate = document.querySelector('#picture')
 	.content
 	.querySelector('.picture');
 
-const photos = createPhotoCollection();
-
 const photosFragment = document.createDocumentFragment();
 
-photos.forEach(({url, description, likes, comments}) => {
+const renderPhoto = (photo) => {
+	const { url, description, likes, comments } = photo;
 	const photoElement = pictureTemplate.cloneNode(true);
 	const imageElement = photoElement.querySelector('.picture__img');
+
+	photoElement.addEventListener('click', (evt) => {
+		evt.preventDefault();
+		openPhoto(photo);
+	});
 	imageElement.src = url;
 	imageElement.alt = description;
 	photoElement.querySelector('.picture__likes').textContent = likes.toString();
 	photoElement.querySelector('.picture__comments').textContent = comments.length;
-	photosFragment.appendChild(photoElement);
-});
+	photosFragment.append(photoElement);
+};
 
-picturesContainer.appendChild(photosFragment);
+photos.forEach(renderPhoto);
+
+picturesContainer.append(photosFragment);
