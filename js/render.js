@@ -1,5 +1,6 @@
 import {photos} from './mock.js';
 import {openPhoto} from './full-size.js';
+import {renderPack} from './utils.js';
 
 const picturesContainer = document.querySelector('.pictures');
 
@@ -7,24 +8,21 @@ const pictureTemplate = document.querySelector('#picture')
 	.content
 	.querySelector('.picture');
 
-const photosFragment = document.createDocumentFragment();
-
-const renderPhoto = (photo) => {
-	const { url, description, likes, comments } = photo;
+const createPhoto = ({ url, description, likes, comments }) => {
 	const photoElement = pictureTemplate.cloneNode(true);
 	const imageElement = photoElement.querySelector('.picture__img');
-
-	photoElement.addEventListener('click', (evt) => {
-		evt.preventDefault();
-		openPhoto(photo);
-	});
 	imageElement.src = url;
 	imageElement.alt = description;
 	photoElement.querySelector('.picture__likes').textContent = likes.toString();
 	photoElement.querySelector('.picture__comments').textContent = comments.length;
-	photosFragment.append(photoElement);
+
+	return photoElement;
 };
 
-photos.forEach(renderPhoto);
+renderPack(photos, picturesContainer, (photo) => {
+	const photoElement = createPhoto(photo);
+	photoElement.addEventListener('click', () => openPhoto(photo));
 
-picturesContainer.append(photosFragment);
+	return photoElement;
+});
+

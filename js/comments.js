@@ -21,7 +21,7 @@ const renderComments = (comments) => {
 	const renderNextCommentsPack = () => {
 		let slicePoint = commentAmount + 5;
 		const allCommentsShown = slicePoint >= comments.length;
-		slicePoint = slicePoint > comments.length ? comments.length : slicePoint;
+		slicePoint = allCommentsShown ? comments.length : slicePoint;
 		const nextPack = comments.slice(commentAmount, slicePoint);
 		renderPack(nextPack, commentsBlock, createComment);
 		commentAmount = slicePoint;
@@ -32,9 +32,7 @@ const renderComments = (comments) => {
 	renderNextCommentsPack();
 	onLoaderClick = renderNextCommentsPack;
 
-	commentsLoader.addEventListener('click', () => {
-		renderNextCommentsPack();
-	});
+	commentsLoader.addEventListener('click', onLoaderClick);
 };
 
 const clearComments = () => {
