@@ -31,9 +31,7 @@ const renderPack = (items, container, render) => {
 };
 
 const isUniqueArr = (array) => {
-	const duplicates = array.filter((number, index, numbers) => {
-		return numbers.indexOf(number) !== index;
-	});
+	const duplicates = array.filter((number, index, numbers) => numbers.indexOf(number) !== index);
 	return duplicates.length <= 0;
 };
 
