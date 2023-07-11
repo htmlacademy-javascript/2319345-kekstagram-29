@@ -52,7 +52,7 @@ const generatePhotoId = createRandomIdFromRangeGenerator(1, PHOTO_COUNT);
 
 const createComment = (...attrs) => ({
 	id: attrs[1],
-	avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+	avatar: `/public/img/avatar-${getRandomInteger(1, 6)}.svg`,
 	message: `${getRandomArrayElement(MESSAGES)}`,
 	name: `${getRandomArrayElement(NAMES)}`,
 });
@@ -63,7 +63,7 @@ const createPhotoDescription = () => {
 	const photoId = generatePhotoId();
 	return {
 		id: photoId,
-		url:`photos/${photoId}.jpg`,
+		url:`/public/photos/${photoId}.jpg`,
 		description: `${getRandomArrayElement(DESCRIPTIONS)}`,
 		likes: getRandomInteger(15, 200),
 		comments: commentsCollection
