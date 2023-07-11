@@ -57,7 +57,7 @@ const createComment = (...attrs) => ({
 	name: `${getRandomArrayElement(NAMES)}`,
 });
 
-const commentsCollection = Array.from({length: getRandomInteger(0, COMMENTS_COUNT)}, createComment);
+const getComments = () => Array.from({length: getRandomInteger(0, COMMENTS_COUNT)}, createComment);
 
 const createPhotoDescription = () => {
 	const photoId = generatePhotoId();
@@ -66,7 +66,7 @@ const createPhotoDescription = () => {
 		url:`/public/photos/${photoId}.jpg`,
 		description: `${getRandomArrayElement(DESCRIPTIONS)}`,
 		likes: getRandomInteger(15, 200),
-		comments: commentsCollection
+		comments: getComments()
 	};
 };
 
