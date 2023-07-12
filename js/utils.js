@@ -30,4 +30,9 @@ const renderPack = (items, container, render) => {
 	container.append(fragment);
 };
 
-export {getRandomInteger, getRandomArrayElement, createRandomIdFromRangeGenerator, isEscapeKey, renderPack};
+const isUniqueArr = (array) => {
+	const duplicates = array.filter((number, index, numbers) => numbers.indexOf(number) !== index);
+	return duplicates.length <= 0;
+};
+
+export {getRandomInteger, getRandomArrayElement, createRandomIdFromRangeGenerator, isEscapeKey, renderPack, isUniqueArr};
