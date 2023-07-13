@@ -70,7 +70,7 @@ effectsContainer.addEventListener('change', (evt) => {
 	changeEffect();
 });
 
-uploadForm.addEventListener('reset', (evt) => {
+uploadForm.addEventListener('reset', () => {
 	choicedFilter = 'none';
 	changeEffect();
 });
