@@ -70,6 +70,11 @@ effectsContainer.addEventListener('change', (evt) => {
 	changeEffect();
 });
 
+uploadForm.addEventListener('reset', (evt) => {
+	choicedFilter = 'none';
+	changeEffect();
+});
+
 sliderElement.noUiSlider.on('update', () => {
 	effectValueInput.value = sliderElement.noUiSlider.get();
 	switch(choicedFilter) {
@@ -93,3 +98,5 @@ sliderElement.noUiSlider.on('update', () => {
 	}
 	filterValue.value = imagePreview.style.filter;
 });
+
+export {};
