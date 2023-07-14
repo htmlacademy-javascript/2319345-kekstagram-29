@@ -23,6 +23,7 @@ const cancelUpload = () => {
 	effectLevelInput.value = '';
 	hashtags.value = '';
 	textDescription.value = '';
+	uploadForm.reset();
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
 
