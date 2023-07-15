@@ -18,11 +18,6 @@ const startUpload = () => {
 const cancelUpload = () => {
 	uploadOverlay.classList.add('hidden');
 	document.body.classList.remove('modal-open');
-	imgUploadInput.value = '';
-	scaleInput.value = '';
-	effectLevelInput.value = '';
-	hashtags.value = '';
-	textDescription.value = '';
 	uploadForm.reset();
 	document.removeEventListener('keydown', onDocumentKeydown);
 };

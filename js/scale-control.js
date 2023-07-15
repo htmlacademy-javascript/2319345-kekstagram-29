@@ -5,19 +5,22 @@ const imagePreview = document.querySelector('.img-upload__preview img');
 const step = 25;
 let currentScale = 100;
 
+const changeScale = () => {
+	scaleInput.value = `${currentScale}%`;
+	imagePreview.style.transform = `scale(${currentScale / 100})`;
+};
+
 const scaleUp = () => {
 	if (currentScale >= 25 && currentScale < 100) {
 		currentScale += step;
-		scaleInput.value = `${currentScale}%`;
-		imagePreview.style.transform = `scale(${currentScale / 100})`;
+		changeScale();
 	}
 };
 
 const scaleDown = () => {
 	if (currentScale > 25 && currentScale <= 100) {
 		currentScale -= step;
-		scaleInput.value = `${currentScale}%`;
-		imagePreview.style.transform = `scale(${currentScale / 100})`;
+		changeScale();
 	}
 };
 
