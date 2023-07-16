@@ -2,8 +2,6 @@ import {isEscapeKey} from './utils.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const imgUploadInput = uploadForm.querySelector('.img-upload__input');
-const scaleInput = uploadForm.querySelector('input[name="scale"]');
-const effectLevelInput = uploadForm.querySelector('input[name="effect-level"]');
 const hashtags = uploadForm.querySelector('input[name="hashtags"]');
 const textDescription = uploadForm.querySelector('.text__description');
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
@@ -32,6 +30,12 @@ cancelUploadButton.addEventListener('click', () => {
 
 function onDocumentKeydown (evt) {
 	if (isEscapeKey(evt)) {
+		const errorContainer = document.querySelector('body > section.error');
+
+		if (errorContainer && !errorContainer.style.display) {
+			return;
+		}
+
 		evt.preventDefault();
 		cancelUpload();
 	}
@@ -44,3 +48,5 @@ function onDocumentKeydown (evt) {
 		}
 	});
 });
+
+export {startUpload, cancelUpload};

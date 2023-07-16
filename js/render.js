@@ -1,4 +1,3 @@
-import {photos} from './mock.js';
 import {openPhoto} from './full-size.js';
 import {renderPack} from './utils.js';
 
@@ -19,10 +18,21 @@ const createPhoto = ({ url, description, likes, comments }) => {
 	return photoElement;
 };
 
-renderPack(photos, picturesContainer, (photo) => {
-	const photoElement = createPhoto(photo);
-	photoElement.addEventListener('click', () => openPhoto(photo));
+const renderedPhotos = (photos) => {
+	const mapPhotos = photos.map((item) => ({
+		...item,
+		url: `/public/${item.url}`,
+		comments: item.comments.map((comment) => ({
+			...comment,
+			avatar: `/public/${comment.avatar}`
+		}))
+	}));
+	return renderPack(mapPhotos, picturesContainer, (photo) => {
+		const photoElement = createPhoto(photo);
+		photoElement.addEventListener('click', () => openPhoto(photo));
 
-	return photoElement;
-});
+		return photoElement;
+	});
+};
 
+export {renderedPhotos};
