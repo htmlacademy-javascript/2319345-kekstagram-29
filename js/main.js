@@ -5,8 +5,6 @@ import './scale-control.js';
 import './effects-control.js';
 import {getData} from './api.js';
 import {showAlert} from './utils.js';
-import {setUserFormSubmit} from './form-validation.js';
-import {cancelUpload} from './form-upload.js';
 
 getData()
 	.then(renderedPhotos)
@@ -15,5 +13,3 @@ getData()
 			showAlert(err.message);
 		}
 	);
-
-setUserFormSubmit(cancelUpload);

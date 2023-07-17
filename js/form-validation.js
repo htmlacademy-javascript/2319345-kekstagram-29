@@ -1,5 +1,6 @@
 import {isEscapeKey, isUniqueArr} from './utils.js';
 import {sendData} from './api.js';
+import {cancelUpload} from './form-upload.js';
 
 const SubmitButtonText = {
 	DEFAULT: 'Опубликовать',
@@ -99,23 +100,21 @@ function onDocumentKeydown (evt) {
 	}
 }
 
-const setUserFormSubmit = (onSuccess) => {
-	uploadForm.addEventListener('submit', (evt) => {
-		evt.preventDefault();
-		const isValid = pristine.validate();
-		if (isValid) {
-			blockSubmitButton();
-			sendData(new FormData(evt.target))
-				.then(() => {
-					showMessageModal(successContainer, successInner);
-				})
-				.then(onSuccess)
-				.catch(() => {
-					showMessageModal(errorContainer, errorInner);
-				})
-				.finally(unblockSubmitButton);
-		}
-	});
-};
+uploadForm.addEventListener('submit', (evt) => {
+	evt.preventDefault();
+	const isValid = pristine.validate();
+	if (isValid) {
+		blockSubmitButton();
+		sendData(new FormData(evt.target))
+			.then(() => {
+				showMessageModal(successContainer, successInner);
+			})
+			.then(cancelUpload)
+			.catch(() => {
+				showMessageModal(errorContainer, errorInner);
+			})
+			.finally(unblockSubmitButton);
+	}
+});
 
-export {setUserFormSubmit, createMessageModal};
+export {createMessageModal};
