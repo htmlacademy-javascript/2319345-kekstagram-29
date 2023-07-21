@@ -1,6 +1,20 @@
-import {isUniqueArr} from './utils.js';
+import {isEscapeKey, isUniqueArr} from './utils.js';
+import {sendData} from './api.js';
+import {cancelUpload} from './form-upload.js';
 
+const SubmitButtonText = {
+	DEFAULT: 'Опубликовать',
+	SENDING: 'Публикуем...'
+};
+
+const successContainer = document.querySelector('#success').content.querySelector('.success');
+const successInner = successContainer.querySelector('.success__inner');
+const successButton = successContainer.querySelector('.success__button');
+const errorContainer = document.querySelector('#error').content.querySelector('.error');
+const errorInner = errorContainer.querySelector('.error__inner');
+const errorButton = errorContainer.querySelector('.error__button');
 const uploadForm = document.querySelector('.img-upload__form');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 const hashtags = uploadForm.querySelector('input[name="hashtags"]');
 let hashtagArr = [];
 
@@ -32,7 +46,75 @@ pristine.addValidator(hashtags, isValidHashtag, 'невалидный хэш-т�
 pristine.addValidator(hashtags, isValidAmount, 'не больше 5 хэш-тегов');
 pristine.addValidator(hashtags, isUniqueHashtag, 'хэш-теги не должны повторяться');
 
+const blockSubmitButton = () => {
+	submitButton.disabled = true;
+	submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+	submitButton.disabled = false;
+	submitButton.textContent = SubmitButtonText.DEFAULT;
+};
+
+const removeMessageModal = () => {
+	[successContainer, errorContainer].forEach((container) => {
+		container.style.display = 'none';
+	});
+	document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+const createMessageModal = (container, inner) => {
+	const fragment = document.createDocumentFragment();
+	fragment.append(inner);
+	container.append(fragment);
+	document.body.insertAdjacentElement('beforeend', container);
+	const addedContainer = document.querySelector(`body > section.${container.classList[0]}`);
+	addedContainer.addEventListener('click', (evt) => {
+		if (evt.target === container) {
+			removeMessageModal();
+		}
+	});
+};
+
+const showMessageModal = (container, inner) => {
+	document.addEventListener('keydown', onDocumentKeydown);
+	const addedContainer = document.querySelector(`body > section.${container.classList[0]}`);
+
+	if (addedContainer) {
+		container.style.display = '';
+	} else {
+		createMessageModal(container, inner);
+	}
+};
+
+[successButton, errorButton].forEach((button) => {
+	button.addEventListener('click', () => {
+		removeMessageModal();
+	});
+});
+
+function onDocumentKeydown (evt) {
+	if (isEscapeKey(evt)) {
+		evt.preventDefault();
+		removeMessageModal();
+	}
+}
+
 uploadForm.addEventListener('submit', (evt) => {
 	evt.preventDefault();
-	pristine.validate();
+	const isValid = pristine.validate();
+	if (isValid) {
+		blockSubmitButton();
+		sendData(new FormData(evt.target))
+			.then(() => {
+				showMessageModal(successContainer, successInner);
+			})
+			.then(cancelUpload)
+			.catch(() => {
+				showMessageModal(errorContainer, errorInner);
+			})
+			.finally(unblockSubmitButton);
+	}
 });
+
+export {createMessageModal};
