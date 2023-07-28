@@ -28,6 +28,7 @@ const renderedPhotos = (photos) => {
 		}))
 	}));
 	return renderPack(mapPhotos, picturesContainer, (photo) => {
+		picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
 		const photoElement = createPhoto(photo);
 		photoElement.addEventListener('click', () => openPhoto(photo));
 

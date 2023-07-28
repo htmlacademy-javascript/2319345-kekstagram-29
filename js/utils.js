@@ -56,4 +56,12 @@ const showAlert = (message) => {
 	}, 3000);
 };
 
-export {getRandomInteger, getRandomArrayElement, createRandomIdFromRangeGenerator, isEscapeKey, renderPack, isUniqueArr, showAlert};
+const debounce = (callback, timeoutDelay = 500) => {
+	let timeoutId;
+	return (...rest) => {
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+	};
+};
+
+export {getRandomInteger, getRandomArrayElement, createRandomIdFromRangeGenerator, isEscapeKey, renderPack, isUniqueArr, showAlert, debounce};
