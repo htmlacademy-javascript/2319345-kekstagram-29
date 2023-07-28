@@ -8,18 +8,13 @@ import {showAlert, debounce} from './utils.js';
 import {init, getSortingPhotos} from './sorting.js';
 
 getData()
-	.then(renderedPhotos)
+	.then((photos) => {
+		const debouncedRenderGallery = debounce(renderedPhotos);
+		init(photos, debouncedRenderGallery);
+		renderedPhotos(getSortingPhotos());
+	})
 	.catch(
 		(err) => {
 			showAlert(err.message);
 		}
 	);
-
-try {
-	const data = await getData();
-	const debouncedRenderGallery = debounce(renderedPhotos);
-	init(data, debouncedRenderGallery);
-	renderedPhotos(getSortingPhotos());
-} catch (err) {
-	showAlert(err.message);
-}

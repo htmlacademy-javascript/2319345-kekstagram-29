@@ -3,6 +3,7 @@ const Filter = {
 	RANDOM: 'filter-random',
 	POPULAR: 'filter-discussed'
 };
+const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 const sortingElement = document.querySelector('.img-filters');
 
 let currentFilter = Filter.DEFAULT;
@@ -20,23 +21,22 @@ const getSortingPhotos = () => {
 	case Filter.POPULAR:
 		return [...photos].sort(sortInPopular);
 	default:
-		return [...photos];
+		return photos;
 	}
 };
 
 const setOnFilterClick = (cb) => {
 	sortingElement.addEventListener('click', (evt) => {
-		if (!evt.target.classList.contains('img-filters__button')) {
-			return;
-		}
-
 		const clickedButton = evt.target;
-		if (clickedButton.id === currentFilter) {
+		const isButton = clickedButton.classList.contains('img-filters__button');
+		const isCurrentFilter = clickedButton.id === currentFilter;
+
+		if (!isButton || isCurrentFilter) {
 			return;
 		}
 
-		sortingElement.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-		clickedButton.classList.add('img-filters__button--active');
+		sortingElement.querySelector(`.${ACTIVE_BUTTON_CLASS}`).classList.remove(ACTIVE_BUTTON_CLASS);
+		clickedButton.classList.add(ACTIVE_BUTTON_CLASS);
 		currentFilter = clickedButton.id;
 		cb(getSortingPhotos());
 	});
@@ -44,7 +44,7 @@ const setOnFilterClick = (cb) => {
 
 const init = (loadedPhotos, cb) => {
 	sortingElement.classList.remove('img-filters--inactive');
-	photos = [...loadedPhotos];
+	photos = loadedPhotos;
 	setOnFilterClick(cb);
 };
 
