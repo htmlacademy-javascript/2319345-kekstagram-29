@@ -6,6 +6,7 @@ import './effects-control.js';
 import {getData} from './api.js';
 import {showAlert, debounce} from './utils.js';
 import {init, getSortingPhotos} from './sorting.js';
+import './preview.js';
 
 getData()
 	.then((photos) => {

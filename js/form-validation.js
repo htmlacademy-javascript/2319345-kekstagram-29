@@ -58,7 +58,7 @@ const unblockSubmitButton = () => {
 
 const removeMessageModal = () => {
 	[successContainer, errorContainer].forEach((container) => {
-		container.style.display = 'none';
+		container.remove();
 	});
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
@@ -78,13 +78,7 @@ const createMessageModal = (container, inner) => {
 
 const showMessageModal = (container, inner) => {
 	document.addEventListener('keydown', onDocumentKeydown);
-	const addedContainer = document.querySelector(`body > section.${container.classList[0]}`);
-
-	if (addedContainer) {
-		container.style.display = '';
-	} else {
-		createMessageModal(container, inner);
-	}
+	createMessageModal(container, inner);
 };
 
 [successButton, errorButton].forEach((button) => {
@@ -100,20 +94,21 @@ function onDocumentKeydown (evt) {
 	}
 }
 
-uploadForm.addEventListener('submit', (evt) => {
+uploadForm.addEventListener('submit', async (evt) => {
 	evt.preventDefault();
 	const isValid = pristine.validate();
 	if (isValid) {
 		blockSubmitButton();
-		sendData(new FormData(evt.target))
-			.then(() => {
-				showMessageModal(successContainer, successInner);
-			})
-			.then(cancelUpload)
-			.catch(() => {
-				showMessageModal(errorContainer, errorInner);
-			})
-			.finally(unblockSubmitButton);
+		try {
+			const formData = new FormData(evt.target);
+			await sendData(formData);
+			cancelUpload();
+			uploadForm.reset();
+			showMessageModal(successContainer, successInner);
+		} catch {
+			showMessageModal(errorContainer, errorInner);
+		}
+		unblockSubmitButton();
 	}
 });
 
