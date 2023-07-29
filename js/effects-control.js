@@ -85,7 +85,7 @@ sliderElement.noUiSlider.on('update', () => {
 		imagePreview.style.filter = `sepia(${effectValueInput.value})`;
 		break;
 	case 'marvin':
-		imagePreview.style.filter = `invert(${effectValueInput.value}100%)`;
+		imagePreview.style.filter = `invert(${effectValueInput.value}%)`;
 		break;
 	case 'phobos':
 		imagePreview.style.filter = `blur(${effectValueInput.value}px)`;

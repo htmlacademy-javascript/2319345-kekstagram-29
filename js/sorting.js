@@ -17,7 +17,7 @@ const sortInPopular = (photo1, photo2) =>
 const getSortingPhotos = () => {
 	switch (currentFilter) {
 	case Filter.RANDOM:
-		return [...photos].sort(sortInRandom);
+		return [...photos].sort(sortInRandom).slice(0, 10);
 	case Filter.POPULAR:
 		return [...photos].sort(sortInPopular);
 	default:
