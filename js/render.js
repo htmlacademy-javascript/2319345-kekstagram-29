@@ -26,5 +26,4 @@ const renderedPhotos = (photos) => renderPack(photos, picturesContainer, (photo)
 	return photoElement;
 });
 
-
 export {renderedPhotos};

@@ -36,7 +36,7 @@ const isValidHashtag = () => {
 	return hashtagArr.every((item) => hashtagPattern.test(item));
 };
 
-const isValidAmount = () => hashtagArr.length < 5;
+const isValidAmount = () => hashtagArr.length <= 5;
 
 const isUniqueHashtag = () => isUniqueArr(hashtagArr);
 
@@ -98,6 +98,7 @@ uploadForm.addEventListener('submit', async (evt) => {
 	evt.preventDefault();
 	const isValid = pristine.validate();
 	if (isValid) {
+		pristine.reset();
 		blockSubmitButton();
 		try {
 			const formData = new FormData(evt.target);
