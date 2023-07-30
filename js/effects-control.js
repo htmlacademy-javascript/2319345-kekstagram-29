@@ -32,7 +32,7 @@ const resetFilters = (min = 0, max = 1, step = 0.1) => {
 			min,
 			max,
 		},
-		start: 0,
+		start: max,
 		step,
 	});
 };
@@ -98,5 +98,3 @@ sliderElement.noUiSlider.on('update', () => {
 	}
 	filterValue.value = imagePreview.style.filter;
 });
-
-export {};

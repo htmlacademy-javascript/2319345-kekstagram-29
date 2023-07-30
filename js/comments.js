@@ -25,7 +25,7 @@ const renderComments = (comments) => {
 		const nextPack = comments.slice(commentAmount, slicePoint);
 		renderPack(nextPack, commentsBlock, createComment);
 		commentAmount = slicePoint;
-		socialCommentCount.textContent = `${commentAmount} из ${comments.length} комментариев`;
+		socialCommentCount.innerHTML = `${commentAmount} из <span class="comments-count">${comments.length}</span> комментариев`;
 		commentsLoader.hidden = allCommentsShown;
 	};
 
