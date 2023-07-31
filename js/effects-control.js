@@ -32,7 +32,7 @@ const resetFilters = (min = 0, max = 1, step = 0.1) => {
 			min,
 			max,
 		},
-		start: 0,
+		start: max,
 		step,
 	});
 };
@@ -85,7 +85,7 @@ sliderElement.noUiSlider.on('update', () => {
 		imagePreview.style.filter = `sepia(${effectValueInput.value})`;
 		break;
 	case 'marvin':
-		imagePreview.style.filter = `invert(${effectValueInput.value}100%)`;
+		imagePreview.style.filter = `invert(${effectValueInput.value}%)`;
 		break;
 	case 'phobos':
 		imagePreview.style.filter = `blur(${effectValueInput.value}px)`;
@@ -98,5 +98,3 @@ sliderElement.noUiSlider.on('update', () => {
 	}
 	filterValue.value = imagePreview.style.filter;
 });
-
-export {};
