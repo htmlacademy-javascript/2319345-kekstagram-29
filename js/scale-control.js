@@ -6,29 +6,28 @@ const step = 25;
 let currentScale = 100;
 
 const changeScale = () => {
-	scaleInput.value = `${currentScale}%`;
-	imagePreview.style.transform = `scale(${currentScale / 100})`;
+  scaleInput.value = `${currentScale}%`;
+  imagePreview.style.transform = `scale(${currentScale / 100})`;
 };
 
 const scaleUp = () => {
-	if (currentScale >= 25 && currentScale < 100) {
-		currentScale += step;
-		changeScale();
-	}
+  if (currentScale >= 25 && currentScale < 100) {
+    currentScale += step;
+    changeScale();
+  }
 };
 
 const scaleDown = () => {
-	if (currentScale > 25 && currentScale <= 100) {
-		currentScale -= step;
-		changeScale();
-	}
+  if (currentScale > 25 && currentScale <= 100) {
+    currentScale -= step;
+    changeScale();
+  }
 };
 
 biggerButton.addEventListener('click', () => {
-	scaleUp();
+  scaleUp();
 });
 
 smallerButton.addEventListener('click', () => {
-	scaleDown();
+  scaleDown();
 });
-

@@ -8,45 +8,45 @@ const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const cancelUploadButton = uploadForm.querySelector('.img-upload__cancel');
 
 const startUpload = () => {
-	uploadOverlay.classList.remove('hidden');
-	document.body.classList.add('modal-open');
-	document.addEventListener('keydown', onDocumentKeydown);
+  uploadOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const cancelUpload = () => {
-	uploadOverlay.classList.add('hidden');
-	document.body.classList.remove('modal-open');
-	uploadForm.reset();
-	document.removeEventListener('keydown', onDocumentKeydown);
+  uploadOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  uploadForm.reset();
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 imgUploadInput.addEventListener('change', () => {
-	startUpload();
+  startUpload();
 });
 
 cancelUploadButton.addEventListener('click', () => {
-	cancelUpload();
+  cancelUpload();
 });
 
 function onDocumentKeydown (evt) {
-	if (isEscapeKey(evt)) {
-		const errorContainer = document.querySelector('body > section.error');
+  if (isEscapeKey(evt)) {
+    const errorContainer = document.querySelector('body > section.error');
 
-		if (errorContainer && !errorContainer.style.display) {
-			return;
-		}
+    if (errorContainer && !errorContainer.style.display) {
+      return;
+    }
 
-		evt.preventDefault();
-		cancelUpload();
-	}
+    evt.preventDefault();
+    cancelUpload();
+  }
 }
 
 [hashtags, textDescription].forEach((item) => {
-	item.addEventListener('keydown', (evt) => {
-		if (isEscapeKey(evt)) {
-			evt.stopPropagation();
-		}
-	});
+  item.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.stopPropagation();
+    }
+  });
 });
 
 export {startUpload, cancelUpload};

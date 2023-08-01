@@ -9,13 +9,13 @@ import {init, getSortingPhotos} from './sorting.js';
 import './preview.js';
 
 getData()
-	.then((photos) => {
-		const debouncedRenderGallery = debounce(renderedPhotos);
-		init(photos, debouncedRenderGallery);
-		renderedPhotos(getSortingPhotos());
-	})
-	.catch(
-		(err) => {
-			showAlert(err.message);
-		}
-	);
+  .then((photos) => {
+    const debouncedRenderGallery = debounce(renderedPhotos);
+    init(photos, debouncedRenderGallery);
+    renderedPhotos(getSortingPhotos());
+  })
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
