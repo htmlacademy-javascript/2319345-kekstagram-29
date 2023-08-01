@@ -3,8 +3,8 @@ import {sendData} from './api.js';
 import {cancelUpload} from './form-upload.js';
 
 const SubmitButtonText = {
-	DEFAULT: 'Опубликовать',
-	SENDING: 'Публикуем...'
+  DEFAULT: 'Опубликовать',
+  SENDING: 'Публикуем...'
 };
 
 const successContainer = document.querySelector('#success').content.querySelector('.success');
@@ -19,21 +19,21 @@ const hashtags = uploadForm.querySelector('input[name="hashtags"]');
 let hashtagArr = [];
 
 const pristine = new Pristine(uploadForm, {
-	classTo: 'img-upload__field-wrapper',
-	errorTextParent: 'img-upload__field-wrapper',
-	errorTextTag: 'div',
-	errorTextClass: 'img-upload__error-text',
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__error-text',
 }, false);
 
 const validateDescription = (value) => value.length <= 140;
 
 hashtags.addEventListener('blur', () => {
-	hashtagArr = hashtags.value.trim().toLowerCase().split(' ').filter(Boolean);
+  hashtagArr = hashtags.value.trim().toLowerCase().split(' ').filter(Boolean);
 });
 
 const isValidHashtag = () => {
-	const hashtagPattern = /^#(?=.*[^0-9])[a-zа-яё0-9]{1,19}$/i;
-	return hashtagArr.every((item) => hashtagPattern.test(item));
+  const hashtagPattern = /^#(?=.*[^0-9])[a-zа-яё0-9]{1,19}$/i;
+  return hashtagArr.every((item) => hashtagPattern.test(item));
 };
 
 const isValidAmount = () => hashtagArr.length <= 5;
@@ -47,70 +47,70 @@ pristine.addValidator(hashtags, isValidAmount, 'не больше 5 хэш-те�
 pristine.addValidator(hashtags, isUniqueHashtag, 'хэш-теги не должны повторяться');
 
 const blockSubmitButton = () => {
-	submitButton.disabled = true;
-	submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
-	submitButton.disabled = false;
-	submitButton.textContent = SubmitButtonText.DEFAULT;
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.DEFAULT;
 };
 
 const removeMessageModal = () => {
-	[successContainer, errorContainer].forEach((container) => {
-		container.remove();
-	});
-	document.removeEventListener('keydown', onDocumentKeydown);
+  [successContainer, errorContainer].forEach((container) => {
+    container.remove();
+  });
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 const createMessageModal = (container, inner) => {
-	const fragment = document.createDocumentFragment();
-	fragment.append(inner);
-	container.append(fragment);
-	document.body.insertAdjacentElement('beforeend', container);
-	const addedContainer = document.querySelector(`body > section.${container.classList[0]}`);
-	addedContainer.addEventListener('click', (evt) => {
-		if (evt.target === container) {
-			removeMessageModal();
-		}
-	});
+  const fragment = document.createDocumentFragment();
+  fragment.append(inner);
+  container.append(fragment);
+  document.body.insertAdjacentElement('beforeend', container);
+  const addedContainer = document.querySelector(`body > section.${container.classList[0]}`);
+  addedContainer.addEventListener('click', (evt) => {
+    if (evt.target === container) {
+      removeMessageModal();
+    }
+  });
 };
 
 const showMessageModal = (container, inner) => {
-	document.addEventListener('keydown', onDocumentKeydown);
-	createMessageModal(container, inner);
+  document.addEventListener('keydown', onDocumentKeydown);
+  createMessageModal(container, inner);
 };
 
 [successButton, errorButton].forEach((button) => {
-	button.addEventListener('click', () => {
-		removeMessageModal();
-	});
+  button.addEventListener('click', () => {
+    removeMessageModal();
+  });
 });
 
 function onDocumentKeydown (evt) {
-	if (isEscapeKey(evt)) {
-		evt.preventDefault();
-		removeMessageModal();
-	}
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    removeMessageModal();
+  }
 }
 
 uploadForm.addEventListener('submit', async (evt) => {
-	evt.preventDefault();
-	const isValid = pristine.validate();
-	if (isValid) {
-		pristine.reset();
-		blockSubmitButton();
-		try {
-			const formData = new FormData(evt.target);
-			await sendData(formData);
-			cancelUpload();
-			uploadForm.reset();
-			showMessageModal(successContainer, successInner);
-		} catch {
-			showMessageModal(errorContainer, errorInner);
-		}
-		unblockSubmitButton();
-	}
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    pristine.reset();
+    blockSubmitButton();
+    try {
+      const formData = new FormData(evt.target);
+      await sendData(formData);
+      cancelUpload();
+      uploadForm.reset();
+      showMessageModal(successContainer, successInner);
+    } catch {
+      showMessageModal(errorContainer, errorInner);
+    }
+    unblockSubmitButton();
+  }
 });
 
 export {createMessageModal};

@@ -15,6 +15,3 @@ parserOptions:
 globals:
   noUiSlider: readonly
   Pristine: readonly
-
-rules:
-  indent: [error, tab]
