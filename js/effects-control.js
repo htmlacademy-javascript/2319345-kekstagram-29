@@ -44,24 +44,24 @@ hideFilters();
 const changeEffect = () => {
   sliderContainer.style.display = '';
   switch(choicedFilter) {
-  case 'chrome':
-    resetFilters();
-    break;
-  case 'sepia':
-    resetFilters();
-    break;
-  case 'marvin':
-    resetFilters(0, 100, 1);
-    break;
-  case 'phobos':
-    resetFilters(0, 3, 0.1);
-    break;
-  case 'heat':
-    resetFilters(1, 3, 0.1);
-    break;
-  default:
-    resetFilters();
-    hideFilters();
+    case 'chrome':
+      resetFilters();
+      break;
+    case 'sepia':
+      resetFilters();
+      break;
+    case 'marvin':
+      resetFilters(0, 100, 1);
+      break;
+    case 'phobos':
+      resetFilters(0, 3, 0.1);
+      break;
+    case 'heat':
+      resetFilters(1, 3, 0.1);
+      break;
+    default:
+      resetFilters();
+      hideFilters();
   }
 };
 
@@ -78,23 +78,23 @@ uploadForm.addEventListener('reset', () => {
 sliderElement.noUiSlider.on('update', () => {
   effectValueInput.value = sliderElement.noUiSlider.get();
   switch(choicedFilter) {
-  case 'chrome':
-    imagePreview.style.filter = `grayscale(${effectValueInput.value})`;
-    break;
-  case 'sepia':
-    imagePreview.style.filter = `sepia(${effectValueInput.value})`;
-    break;
-  case 'marvin':
-    imagePreview.style.filter = `invert(${effectValueInput.value}%)`;
-    break;
-  case 'phobos':
-    imagePreview.style.filter = `blur(${effectValueInput.value}px)`;
-    break;
-  case 'heat':
-    imagePreview.style.filter = `brightness(${effectValueInput.value})`;
-    break;
-  default:
-    imagePreview.style.filter = '';
+    case 'chrome':
+      imagePreview.style.filter = `grayscale(${effectValueInput.value})`;
+      break;
+    case 'sepia':
+      imagePreview.style.filter = `sepia(${effectValueInput.value})`;
+      break;
+    case 'marvin':
+      imagePreview.style.filter = `invert(${effectValueInput.value}%)`;
+      break;
+    case 'phobos':
+      imagePreview.style.filter = `blur(${effectValueInput.value}px)`;
+      break;
+    case 'heat':
+      imagePreview.style.filter = `brightness(${effectValueInput.value})`;
+      break;
+    default:
+      imagePreview.style.filter = '';
   }
   filterValue.value = imagePreview.style.filter;
 });
